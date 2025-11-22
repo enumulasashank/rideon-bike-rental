@@ -97,17 +97,29 @@ def register():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
+    msg = ""
+
     if request.method == 'POST':
-        user = Customer.query.filter_by(email=request.form['email']).first()
-        print("************", user.password_hash)
-        print(user.password_hash,"**", request.form['password'])
-        print("-------", user.password_hash == request.form['password'])
-        if user and user.password_hash == request.form['password']:
-            login_user(user)
-            flash('Logged in', 'success')
-            return redirect(url_for('bikes'))
-        flash('Invalid credentials', 'danger')
-    return render_template('login.html')
+        email = request.form['email']
+        password = request.form['password']
+
+        if not email or not password:
+            msg = "Please enter both email and password."
+            return render_template("login.html", msg=msg)
+
+        conn = sqlite3.connect("rideon_bike_rental.db")
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM users WHERE email = ? AND password = ?", (email, password))
+        user = cur.fetchone()
+        conn.close()
+
+        if user:
+            session['user'] = email
+            return redirect('/dashboard')
+        else:
+            msg = "Incorrect email or password."
+
+    return render_template("login.html", msg=msg)
 
 @app.route('/logout')
 @login_required
