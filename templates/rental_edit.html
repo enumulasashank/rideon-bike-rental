@@ -1,7 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2>Create Rental</h2>
 
-{% extends "base.html" %}{% block content %}<h2>Create Rental</h2><form method="post"><div class="mb-3"><label>Customer</label><select class="form-control" name="customer_id">{% for c in customers %}<option value="{{ c.customer_id }}">{{ c.first_name }} {{ c.last_name }}</option>{% endfor %}</select></div>
-<div class="mb-3"><label>Bike</label><select class="form-control" name="bike_id">{% for b in bikes %}<option value="{{ b.bike_id }}">{{ b.model }}</option>{% endfor %}</select></div>
-<div class="mb-3"><label>Location</label><select class="form-control" name="location_id">{% for l in locations %}<option value="{{ l.location_id }}">{{ l.location_name }}</option>{% endfor %}</select></div>
-<div class="mb-3"><label>Start</label><input class="form-control" name="rental_start" placeholder="YYYY-MM-DD HH:MM"></div>
-<div class="mb-3"><label>End</label><input class="form-control" name="rental_end" placeholder="YYYY-MM-DD HH:MM"></div>
-<div class="mb-3"><label>Total cost</label><input class="form-control" name="total_cost"></div><button class="btn btn-primary">Create</button></form>{% endblock %}
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Customer</label>
+                <select class="form-control" name="customer_id">
+                    {% for c in customers %}
+                        <option value="{{ c.customer_id }}">{{ c.first_name }} {{ c.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Bike</label>
+                <select class="form-control" name="bike_id">
+                    {% for b in bikes %}
+                        <option value="{{ b.bike_id }}">{{ b.model }} ({{ b.type }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Location</label>
+                <select class="form-control" name="location_id">
+                    {% for l in locations %}
+                        <option value="{{ l.location_id }}">{{ l.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Start Time</label>
+                <input type="text" name="rental_start" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">End Time</label>
+                <input type="text" name="rental_end" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Total Cost</label>
+                <input type="number" name="total_cost" class="form-control">
+            </div>
+
+            <button class="btn btn-success">Create Rental</button>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
