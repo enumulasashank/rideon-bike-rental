@@ -88,6 +88,8 @@ def register():
                         (name, email, password))
             conn.commit()
             msg = "Registration successful! Please login."
+            flash(msg, "success")
+            return redirect(url_for('login'))
         except Exception as e:
             msg = "Error: " + str(e)
         finally:
@@ -115,6 +117,7 @@ def login():
 
         if user:
             session['user'] = email
+            flash("Logged in successfully", "success")
             return redirect('/dashboard')
         else:
             msg = "Incorrect email or password."
@@ -124,9 +127,9 @@ def login():
 @app.route('/logout')
 @login_required
 def logout():
-    logout_user()
-    flash('Logged out', 'info')
-    return redirect(url_for('login'))
+    session.pop('user', None)
+    flash("Logged out successfully", "success")
+    return redirect('/login')
 
 @app.route('/bikes')
 @login_required
