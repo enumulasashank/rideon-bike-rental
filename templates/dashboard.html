@@ -1,0 +1,3 @@
+
+{% extends "base.html" %}{% block content %}<h2>Dashboard</h2><canvas id="rentalsChart" width="800" height="300"></canvas><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>const labels = {{ labels|tojson }}; const values = {{ values|tojson }}; const ctx = document.getElementById('rentalsChart').getContext('2d'); new Chart(ctx,{type:'bar',data:{labels:labels,datasets:[{label:'Rentals',data:values}]}});</script>{% endblock %}

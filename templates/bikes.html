@@ -1,0 +1,7 @@
+
+{% extends "base.html" %}{% block content %}<h2>Bikes</h2><p><a class="btn btn-primary" href="{{ url_for('create_bike') }}">Create Bike</a></p>
+<table class="table table-striped"><thead><tr><th>ID</th><th>Model</th><th>Type</th><th>Status</th><th>Rate</th><th>Location</th><th>Actions</th></tr></thead><tbody>
+{% for b in bikes %}<tr><td>{{ b.bike_id }}</td><td>{{ b.model }}</td><td>{{ b.type }}</td><td>{{ b.status }}</td><td>{{ b.rental_rate }}</td><td>{{ b.location_id }}</td>
+<td><a class="btn btn-sm btn-secondary" href="{{ url_for('edit_bike', bike_id=b.bike_id) }}">Edit</a>
+<form method="post" action="{{ url_for('delete_bike', bike_id=b.bike_id) }}" style="display:inline"><button class="btn btn-sm btn-danger" onclick="return confirm('Delete bike?')">Delete</button></form></td></tr>{% endfor %}
+</tbody></table>{% endblock %}

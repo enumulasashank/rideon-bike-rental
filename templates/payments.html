@@ -1,0 +1,2 @@
+
+{% extends "base.html" %}{% block content %}<h2>Payments</h2><p><a class="btn btn-primary" href="{{ url_for('create_payment') }}">Record Payment</a></p><table class="table table-striped"><thead><tr><th>ID</th><th>Rental</th><th>Amount</th><th>Date</th><th>Method</th></tr></thead><tbody>{% for p in payments %}<tr><td>{{ p.payment_id }}</td><td>{{ p.rental_id }}</td><td>{{ p.amount }}</td><td>{{ p.payment_date }}</td><td>{{ p.payment_method }}</td></tr>{% endfor %}</tbody></table>{% endblock %}

@@ -1,0 +1,2 @@
+
+{% extends "base.html" %}{% block content %}<h2>Rentals</h2><p><a class="btn btn-primary" href="{{ url_for('create_rental') }}">Create Rental</a></p><table class="table table-striped"><thead><tr><th>ID</th><th>Customer</th><th>Bike</th><th>Location</th><th>Start</th><th>End</th><th>Total</th></tr></thead><tbody>{% for r in rentals %}<tr><td>{{ r.rental_id }}</td><td>{{ r.customer_id }}</td><td>{{ r.bike_id }}</td><td>{{ r.location_id }}</td><td>{{ r.rental_start }}</td><td>{{ r.rental_end }}</td><td>{{ r.total_cost }}</td></tr>{% endfor %}</tbody></table>{% endblock %}

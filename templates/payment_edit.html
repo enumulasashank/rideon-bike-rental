@@ -1,0 +1,4 @@
+
+{% extends "base.html" %}{% block content %}<h2>Record Payment</h2><form method="post"><div class="mb-3"><label>Rental</label><select class="form-control" name="rental_id">{% for r in rentals %}<option value="{{ r.rental_id }}">{{ r.rental_id }}</option>{% endfor %}</select></div>
+<div class="mb-3"><label>Amount</label><input class="form-control" name="amount"></div><div class="mb-3"><label>Payment date</label><input class="form-control" name="payment_date" placeholder="YYYY-MM-DD HH:MM"></div>
+<div class="mb-3"><label>Method</label><input class="form-control" name="payment_method"></div><button class="btn btn-primary">Record</button></form>{% endblock %}

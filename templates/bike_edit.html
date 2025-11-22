@@ -1,0 +1,8 @@
+
+{% extends "base.html" %}{% block content %}<h2>{% if bike %}Edit{% else %}Create{% endif %} Bike</h2>
+<form method="post"><div class="mb-3"><label>Model</label><input class="form-control" name="model" value="{{ bike.model if bike else '' }}"></div>
+<div class="mb-3"><label>Type</label><input class="form-control" name="type" value="{{ bike.type if bike else '' }}"></div>
+<div class="mb-3"><label>Status</label><input class="form-control" name="status" value="{{ bike.status if bike else 'available' }}"></div>
+<div class="mb-3"><label>Rate</label><input class="form-control" name="rental_rate" value="{{ bike.rental_rate if bike else '' }}"></div>
+<div class="mb-3"><label>Location</label><select class="form-control" name="location_id"><option value="">--select--</option>{% for l in locations %}<option value="{{ l.location_id }}" {% if bike and bike.location_id==l.location_id %}selected{% endif %}>{{ l.location_name }}</option>{% endfor %}</select></div>
+<button class="btn btn-primary">Save</button></form>{% endblock %}

@@ -1,0 +1,7 @@
+
+{% extends "base.html" %}{% block content %}<h2>Create Rental</h2><form method="post"><div class="mb-3"><label>Customer</label><select class="form-control" name="customer_id">{% for c in customers %}<option value="{{ c.customer_id }}">{{ c.first_name }} {{ c.last_name }}</option>{% endfor %}</select></div>
+<div class="mb-3"><label>Bike</label><select class="form-control" name="bike_id">{% for b in bikes %}<option value="{{ b.bike_id }}">{{ b.model }}</option>{% endfor %}</select></div>
+<div class="mb-3"><label>Location</label><select class="form-control" name="location_id">{% for l in locations %}<option value="{{ l.location_id }}">{{ l.location_name }}</option>{% endfor %}</select></div>
+<div class="mb-3"><label>Start</label><input class="form-control" name="rental_start" placeholder="YYYY-MM-DD HH:MM"></div>
+<div class="mb-3"><label>End</label><input class="form-control" name="rental_end" placeholder="YYYY-MM-DD HH:MM"></div>
+<div class="mb-3"><label>Total cost</label><input class="form-control" name="total_cost"></div><button class="btn btn-primary">Create</button></form>{% endblock %}
