@@ -70,23 +70,30 @@ def index():
 
 @app.route('/register', methods=['GET','POST'])
 def register():
-    if request.method == 'POST':
+    msg = ""
+
+    if request.method == "POST":
+        name = request.form['name']
         email = request.form['email']
-        if Customer.query.filter_by(email=email).first():
-            flash('Email already registered', 'danger')
-            return redirect(url_for('register'))
-        pw = generate_password_hash(request.form['password'])
-        user = Customer(first_name=request.form.get('first_name'),
-                        last_name=request.form.get('last_name'),
-                        email=email,
-                        phone=request.form.get('phone'),
-                        password_hash=pw)
-        db.session.add(user)
-        db.session.commit()
-        login_user(user)
-        flash('Registered and logged in', 'success')
-        return redirect(url_for('bikes'))
-    return render_template('register.html')
+        password = request.form['password']
+
+        if not name or not email or not password:
+            msg = "All fields are required!"
+            return render_template("register.html", msg=msg)
+
+        try:
+            conn = sqlite3.connect("rideon_bike_rental.db")
+            cur = conn.cursor()
+            cur.execute("INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
+                        (name, email, password))
+            conn.commit()
+            msg = "Registration successful! Please login."
+        except Exception as e:
+            msg = "Error: " + str(e)
+        finally:
+            conn.close()
+
+    return render_template("register.html", msg=msg)
 
 @app.route('/login', methods=['GET','POST'])
 def login():
